@@ -1,0 +1,27 @@
+{
+  "name": "translate-telephone",
+  "version": "1.0.0",
+  "description": "Watch as your phrase gets destroyed through Google's lovely translate API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gymnophoria/Translate-Telephone.git"
+  },
+  "keywords": [
+    "translate",
+    "google",
+    "telephone"
+  ],
+  "author": "Gymnophoria (ideas by Exependable)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gymnophoria/Translate-Telephone/issues"
+  },
+  "homepage": "https://github.com/Gymnophoria/Translate-Telephone#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
