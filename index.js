@@ -11,7 +11,7 @@ $('#form').on('submit', function (event) {
 
 	let array = getStrings(nums);
 
-	$('.content').append('<table id="table"><tr class="bold"><th>Language</th><th>Text</th><th>Translation</th></tr></table>');
+	$('.content').append('<h3>Original text: ' + textElement.val() + '</h3><table id="table"><tr class="bold"><th>Language</th><th>Text</th><th>Translation</th></tr></table>');
 	let table = $('#table');
 
 	addNRows(array, table, textElement.val(), 0);
