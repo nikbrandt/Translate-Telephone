@@ -41,7 +41,7 @@ function addNRows(array, table, text, i) {
 				if (i < array.length) {
 					setTimeout(function () {
 						return addNRows(array, table, text, i)
-					}, Math.round(Math.random() * 6001) + 9000);
+					}, Math.round(Math.random() * 3001) + 4000);
 				} else $('.content').append(`<h3>Final text: ${textTwo}</h3>`);
 			});
 		}, Math.round(Math.random() * 3001) + 4000);
