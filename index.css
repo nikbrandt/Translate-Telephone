@@ -15,3 +15,8 @@
     margin-top: 20px;
     cursor: pointer;
 }
+
+.button:disabled {
+    background-color: darkgray;
+    cursor: default;
+}

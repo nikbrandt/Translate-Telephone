@@ -4,13 +4,14 @@ const codesToLanguages = { "af": "Afrikaans", "sq": "Albanian", "am": "Amharic",
 $('#form').on('submit', function (event) {
 	event.preventDefault();
 
+	$('#submit').attr("disabled","disabled");
 	let numElement = $('#num');
 	let textElement = $('#text');
 	let nums = numElement.val();
 
 	let array = getStrings(nums);
 
-	$('.content').append('<table id="table"><tr><th>Text</th><th>Translation</th><th>Language</th></tr></table>');
+	$('.content').append('<table id="table"><tr><th>Language</th><th>Text</th><th>Translation</th></tr></table>');
 	let table = $('#table');
 
 	addNRows(array, table, textElement.val(), 0);
@@ -25,6 +26,8 @@ function addNRows(array, table, text, i) {
 	}).then(function (response) {
 		let text = response[0][0][0];
 
+		table.append(`<tr><th>$\{codesToLanguages[array[i]]}</th><th>${text}</th></tr>`);
+
 		setTimeout(function () {
 			$.ajax({
 				url: 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + array[i] + '&tl=en&dt=t&q=' + text,
@@ -32,7 +35,7 @@ function addNRows(array, table, text, i) {
 			}).then(function (response) {
 				let textTwo = response[0][0][0];
 
-				table.append(`<tr><th>${text}</th><th>${textTwo}</th><th>${codesToLanguages[array[i]]}</th></tr>`);
+				$('tr').last().append(`<th>${textTwo}</th>`);
 
 				i++;
 				if (i < array.length) {
