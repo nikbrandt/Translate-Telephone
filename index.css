@@ -1,0 +1,17 @@
+* {
+    font-family: 'Niramit', sans-serif;
+    text-align: left;
+}
+
+.button {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+    background-color: lightseagreen;
+    margin-top: 20px;
+    cursor: pointer;
+}
