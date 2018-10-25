@@ -7,6 +7,7 @@ $('#form').on('submit', function (event) {
 	$('#submit').attr("disabled","disabled");
 	let numElement = $('#num');
 	let textElement = $('#text');
+	let translateElement = $('#translate'); // check if this is checked, if not don't add Translation thing
 	let nums = numElement.val();
 
 	let array = getStrings(nums);
@@ -41,10 +42,14 @@ function addNRows(array, table, text, i) {
 				if (i < array.length) {
 					setTimeout(function () {
 						return addNRows(array, table, text, i)
-					}, Math.round(Math.random() * 3001) + 2000);
-				} else $('.content').append(`<h3>Final text: ${textTwo}</h3>`);
+					}, Math.round(Math.random() * 3001) + 3000);
+				} else {
+					$('.content').append(`<h3>Final text: ${textTwo}</h3>`);
+					$('#submit').attr("disabled",false);
+					table.removeAttr('id');
+				}
 			});
-		}, Math.round(Math.random() * 2001) + 1000);
+		}, Math.round(Math.random() * 2001) + 2000);
 	}).catch(console.error);
 }
 

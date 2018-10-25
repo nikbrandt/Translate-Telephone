@@ -12,16 +12,16 @@
             <h3>Code by Nik B, idea by Nik L.</h3>
     
             <form id="form" action="/translate">
-                <label>
-                    Number of translations:<br>
-                    <input id="num" type="number" name="num" value="10" min="1" max="15" required>
-                </label>
-                <br><br>
-                <label>
-                    Input text:<br>
-                    <input id="text" name="text" required>
-                </label>
+                Input text:<br>
+                <input id="text" name="text" required>
                 <br>
+                Number of translations:<br>
+                <input id="num" type="number" name="num" value="10" min="1" max="15" required>                
+                <br><br>
+                <label class="container">Translate to English?
+                    <input id="translate" type="checkbox" name="translate">
+                    <span class="checkmark"></span>
+                </label>
                 <input id="submit" class="button" type="submit" value="yes go">
             </form>
         </div>
