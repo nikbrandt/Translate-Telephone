@@ -7,18 +7,18 @@ $('#form').on('submit', function (event) {
 	$('#submit').attr("disabled","disabled");
 	let numElement = $('#num');
 	let textElement = $('#text');
-	let translateElement = $('#translate'); // check if this is checked, if not don't add Translation thing
+	let toEnglish = $('#translate').attr('checked'); // check if this is checked, if not don't add Translation thing
 	let nums = numElement.val();
 
 	let array = getStrings(nums);
 
-	$('.content').append('<h3>Original text: ' + textElement.val() + '</h3><table id="table"><tr class="bold"><th>Language</th><th>Text</th><th>Translation</th></tr></table>');
+	$('.content').append('<h3>Original text: ' + textElement.val() + '</h3><table id="table"><tr class="bold"><th>Language</th><th>Text</th>' + toEnglish ? '<th>Translation</th>' : '' + '</tr></table>');
 	let table = $('#table');
 
-	addNRows(array, table, textElement.val(), 0);
+	addNRows(array, table, textElement.val(), 0, toEnglish);
 });
 
-function addNRows(array, table, text, i) {
+function addNRows(array, table, text, i, toEnglish) {
  	let source = i === 0 ? 'en' : array[i - 1];
 
 	$.ajax({
@@ -29,7 +29,7 @@ function addNRows(array, table, text, i) {
 
 		table.append(`<tr><th>${codesToLanguages[array[i]]}</th><th>${text}</th></tr>`);
 
-		setTimeout(function () {
+		if (toEnglish) setTimeout(function () {
 			$.ajax({
 				url: 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + array[i] + '&tl=en&dt=t&q=' + text,
 				method: 'GET'
@@ -41,15 +41,24 @@ function addNRows(array, table, text, i) {
 				i++;
 				if (i < array.length) {
 					setTimeout(function () {
-						return addNRows(array, table, text, i)
+						return addNRows(array, table, text, i, toEnglish)
 					}, Math.round(Math.random() * 3001) + 3000);
 				} else {
 					$('.content').append(`<h3>Final text: ${textTwo}</h3>`);
 					$('#submit').attr("disabled",false);
 					table.removeAttr('id');
 				}
-			});
+			}).catch(console.error);
 		}, Math.round(Math.random() * 2001) + 2000);
+		else if (i < array.length) {
+			setTimeout(function () {
+				return addNRows(array, table, text, i, toEnglish)
+			}, Math.round(Math.random() * 3001) + 3000);
+		} else {
+			$('.content').append(`<h3>Final text: ${textTwo}</h3>`);
+			$('#submit').attr("disabled",false);
+			table.removeAttr('id');
+		}
 	}).catch(console.error);
 }
 
