@@ -7,12 +7,12 @@ $('#form').on('submit', function (event) {
 	$('#submit').attr("disabled","disabled");
 	let numElement = $('#num');
 	let textElement = $('#text');
-	let toEnglish = $('#translate').attr('checked'); // check if this is checked, if not don't add Translation thing
+	let toEnglish = $('#translate').attr('checked');
 	let nums = numElement.val();
 
 	let array = getStrings(nums);
 
-	$('.content').append('<h3>Original text: ' + textElement.val() + '</h3><table id="table"><tr class="bold"><th>Language</th><th>Text</th>' + toEnglish ? '<th>Translation</th>' : '' + '</tr></table>');
+	$('.content').append('<h3>Original text: ' + textElement.val() + '</h3><table id="table"><tr class="bold"><th>Language</th><th>Text</th>' + (toEnglish ? '<th>Translation</th>' : '') + '</tr></table>');
 	let table = $('#table');
 
 	addNRows(array, table, textElement.val(), 0, toEnglish);
