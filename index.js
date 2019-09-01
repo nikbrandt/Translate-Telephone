@@ -27,7 +27,7 @@ function addNRows(array, table, text, i, toEnglish) {
 	}).then(function (response) {
 		let text = response[0][0][0];
 
-		table.append(`<tr><th>${codesToLanguages[array[i]]}</th><th>${text}</th></tr>`);
+		if (i < array.length) table.append(`<tr><th>${codesToLanguages[array[i]]}</th><th>${text}</th></tr>`);
 
 		if (toEnglish) {
 			setTimeout(function () {
