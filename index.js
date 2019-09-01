@@ -51,6 +51,8 @@ function addNRows(array, table, text, i, toEnglish) {
 			}).catch(console.error);
 		}, Math.round(Math.random() * 2001) + 2000);
 		else if (i < array.length) {
+			i++;
+			
 			setTimeout(function () {
 				return addNRows(array, table, text, i, toEnglish)
 			}, Math.round(Math.random() * 3001) + 3000);
