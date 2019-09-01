@@ -7,7 +7,7 @@ $('#form').on('submit', function (event) {
 	$('#submit').attr("disabled","disabled");
 	let numElement = $('#num');
 	let textElement = $('#text');
-	let toEnglish = $('#translate').attr('checked');
+	let toEnglish = $('#translate').prop('checked');
 	let nums = numElement.val();
 
 	let array = getStrings(nums);
@@ -22,42 +22,43 @@ function addNRows(array, table, text, i, toEnglish) {
  	let source = i === 0 ? 'en' : array[i - 1];
 
 	$.ajax({
-		url: 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + source + '&tl=' + array[i] + '&dt=t&q=' + text,
+		url: 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + source + '&tl=' + (array[i] || 'en') + '&dt=t&q=' + text,
 		method: 'GET'
 	}).then(function (response) {
 		let text = response[0][0][0];
 
 		table.append(`<tr><th>${codesToLanguages[array[i]]}</th><th>${text}</th></tr>`);
 
-		if (toEnglish) setTimeout(function () {
-			$.ajax({
-				url: 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + array[i] + '&tl=en&dt=t&q=' + text,
-				method: 'GET'
-			}).then(function (response) {
-				let textTwo = response[0][0][0];
+		if (toEnglish) {
+			setTimeout(function () {
+				$.ajax({
+					url: 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + array[i] + '&tl=en&dt=t&q=' + text,
+					method: 'GET'
+				}).then(function (response) {
+					let textTwo = response[0][0][0];
 
-				$('tr').last().append(`<th>${textTwo}</th>`);
+					$('tr').last().append(`<th>${textTwo}</th>`);
 
-				i++;
-				if (i < array.length) {
-					setTimeout(function () {
-						return addNRows(array, table, text, i, toEnglish)
-					}, Math.round(Math.random() * 3001) + 3000);
-				} else {
-					$('.content').append(`<h3>Final text: ${textTwo}</h3>`);
-					$('#submit').attr("disabled",false);
-					table.removeAttr('id');
-				}
-			}).catch(console.error);
-		}, Math.round(Math.random() * 2001) + 2000);
-		else if (i < array.length) {
+					i++;
+					if (i < array.length) {
+						setTimeout(function () {
+							return addNRows(array, table, text, i, toEnglish)
+						}, Math.round(Math.random() * 3001) + 3000);
+					} else {
+						$('.content').append(`<h3>Final text: ${textTwo}</h3>`);
+						$('#submit').attr("disabled",false);
+						table.removeAttr('id');
+					}
+				}).catch(console.error);
+			}, Math.round(Math.random() * 2001) + 2000);
+		} else if (i < array.length) {
 			i++;
 			
 			setTimeout(function () {
 				return addNRows(array, table, text, i, toEnglish)
 			}, Math.round(Math.random() * 3001) + 3000);
 		} else {
-			$('.content').append(`<h3>Final text: ${textTwo}</h3>`);
+			$('.content').append(`<h3>Final text: ${text}</h3>`);
 			$('#submit').attr("disabled",false);
 			table.removeAttr('id');
 		}
